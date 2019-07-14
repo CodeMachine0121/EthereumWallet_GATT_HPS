@@ -2,7 +2,8 @@
 
 Using GATT HTTP Proxy Service to do some request
 
-base on bleno module :  https://github.com/Adam-Langley/pybleno
+base on bleno module :  <a href="https://github.com/Adam-Langley/pybleno">python3-bleno</a>
+
 run main.py to start application 
 
 
