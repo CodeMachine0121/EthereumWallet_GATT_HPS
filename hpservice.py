@@ -14,7 +14,9 @@ class SetToAddress(Characteristic):
     def onWriteRequest(self, data, offset, withoutResponse, callback):
         #type:payloads
         global to_Address
+        print('encode: ',str(data.decode()))
         to_Address += str(data.decode())
+        print('decode: ',to_Address)
         callback(Characteristic.RESULT_SUCCESS)
     
     def onReadRequest(self,offset,callback):
@@ -33,8 +35,9 @@ class SetTransaction(Characteristic):
     def onWriteRequest(self, data, offset, withoutResponse, callback):
         #type:payloads
         global transactions
-        print(transactions)
+        print('encode: ',str(data.decode()) )
         transactions += str(data.decode())
+        print('decode: ',transactions)
         callback(Characteristic.RESULT_SUCCESS)
     
     def onReadRequest(self,offset,callback):
@@ -55,6 +58,7 @@ class UriChrc(Characteristic):
             )
     def onWriteRequest(self, data, offset, withoutResponse, callback):
         value = str(data.decode())
+        print('write uri: ',data)
         global uri
         uri = 'http://localhost:5000/'+value
         print('uri you write in:',uri)
@@ -166,8 +170,7 @@ class HttpControlPointChrc(Characteristic):
         import requests
         global http_uriService
         uri = http_uriService.getUri()
-
-        payload = to_Address+','+transactions
+        payload = to_Address+','+transactions 
         datas = {'data':payload}
         r = requests.post( uri, data=datas)
         self.response = r.json()
@@ -211,6 +214,7 @@ class HttpSecurityChrc(Characteristic):
     def onReadRequest(self, offset, callback):
         print('Security read: ',self.https_security )
         callback(Characteristic.RESULT_SUCCESS, str(self.https_security).encode('utf8'))
+
 
 
 
