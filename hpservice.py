@@ -169,7 +169,12 @@ class HttpControlPointChrc(Characteristic):
         import requests
         global http_uriService
         uri = http_uriService.getUri()
-        payload = to_Address+','+transactions 
+        if uri == "ethertxn":
+            payload = to_Address+','+transactions 
+        elif uri == "wallet":
+            payload="mcuite" #change
+        else:
+            payload=""
         datas = {'data':payload}
         r = requests.post( uri, data=datas)
         self.response = r.json()
