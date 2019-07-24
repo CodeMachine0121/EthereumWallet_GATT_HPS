@@ -42,7 +42,7 @@ class SetTransaction(Characteristic):
     
     def onReadRequest(self,offset,callback):
         global transactions
-        callback(Characteristic.RESULT_SUCCESS, transactions.encode('utf8'))
+        callback(Characteristic.RESULT_SUCCESS, transactions.encode('utf8') )
 
 
 uri = ''
@@ -90,6 +90,7 @@ class HttpEntityBodyChrc(Characteristic):
     CHRC_UUID = '00002ab9-0000-1000-8000-00805f9b34fb'
     # put the response in to EnityBody
     body = dict()
+    
     def __init__(self):
         Characteristic.__init__(self, {
             'uuid': '2AB9',
@@ -97,21 +98,19 @@ class HttpEntityBodyChrc(Characteristic):
             'value': None }
             )
         
-    
     def set_http_entity_body(self,value):
         print('body value you set: ',value)
         self.body = value
     
-   
-    
     def onReadRequest(self, offset, callback):
-        print('Body read: ',self.body)
-        if self.body == dict(): 
-            callback(Characteristic.RESULT_SUCCESS, ''.encode('utf8') )
-        else:
-            callback(Characteristic.RESULT_SUCCESS, self.body['response'].encode('utf8') )
-
-
+        
+        if self.body==dict():
+            callback( Characteristic.RESULT_SUCCESS, "empty".encode('utf8')[offset:] )
+        else:    
+            print('Body read: ',self.body["response"] )
+            callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8')[offset:] )
+        #callback(  self.body["response"].encode('utf8') )
+       
 
 http_uriService = UriChrc()
 
