@@ -103,12 +103,8 @@ class HttpEntityBodyChrc(Characteristic):
         self.body = value
     
     def onReadRequest(self, offset, callback):
-        
-        if self.body==dict():
-            callback( Characteristic.RESULT_SUCCESS, "empty".encode('utf8')[offset:] )
-        else:    
-            print('Body read: ',self.body["response"] )
-            callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8')[offset:] )
+        print('Body read: ',self.body["response"] )
+        callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8')[:offset] )
         #callback(  self.body["response"].encode('utf8') )
        
 
@@ -169,12 +165,7 @@ class HttpControlPointChrc(Characteristic):
         import requests
         global http_uriService
         uri = http_uriService.getUri()
-        if uri == "ethertxn":
-            payload = to_Address+','+transactions 
-        elif uri == "wallet":
-            payload="mcuite" #change
-        else:
-            payload=""
+        payload = to_Address+','+transactions 
         datas = {'data':payload}
         r = requests.post( uri, data=datas)
         self.response = r.json()
@@ -218,6 +209,7 @@ class HttpSecurityChrc(Characteristic):
     def onReadRequest(self, offset, callback):
         print('Security read: ',self.https_security )
         callback(Characteristic.RESULT_SUCCESS, str(self.https_security).encode('utf8'))
+
 
 
 
