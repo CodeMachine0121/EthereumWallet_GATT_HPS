@@ -104,7 +104,7 @@ class HttpEntityBodyChrc(Characteristic):
     
     def onReadRequest(self, offset, callback):
         print('Body read: ',self.body["response"] )
-        callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8')[:offset] )
+        callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8') )
         #callback(  self.body["response"].encode('utf8') )
        
 
