@@ -9,7 +9,7 @@ run main.py to start application
 
 <h2>Characteristics</h2>
 <ul>
-<li>2AB7 : HttpURI</li>
+<li>2AB6 : HttpURI</li>
 <li>2AB9 : HttpEntityBody</li>
 <li>2ABA : HttpControlPoint</li>
 <li>2AB8 : HttpStatus</li>
