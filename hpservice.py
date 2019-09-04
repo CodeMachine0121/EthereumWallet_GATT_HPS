@@ -60,7 +60,7 @@ class UriChrc(Characteristic):
         value = str(data.decode())
         print('write uri: ',data)
         global uri
-        uri = 'http://localhost:5000/'+value
+        uri = 'http://127.0.0.1:6000/'+value
         print('uri you write in:',uri)
         callback(Characteristic.RESULT_SUCCESS)
     def getUri(self):
@@ -104,7 +104,7 @@ class HttpEntityBodyChrc(Characteristic):
     
     def onReadRequest(self, offset, callback):
         print('Body read: ',self.body["response"] )
-        callback( Characteristic.RESULT_SUCCESS, self.body["response"].encode('utf8') )
+        callback( Characteristic.RESULT_SUCCESS, self.body["response"][offset:].encode('utf8') )
         #callback(  self.body["response"].encode('utf8') )
        
 
@@ -209,6 +209,8 @@ class HttpSecurityChrc(Characteristic):
     def onReadRequest(self, offset, callback):
         print('Security read: ',self.https_security )
         callback(Characteristic.RESULT_SUCCESS, str(self.https_security).encode('utf8'))
+
+
 
 
 
