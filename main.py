@@ -32,8 +32,10 @@ bleno.start()
 
 print ('Hit <ENTER> to disconnect')
 
+
 if (sys.version_info > (3, 0)):
-    input()
+    while True:
+        pass
 else:
     raw_input()
 
@@ -42,3 +44,4 @@ bleno.disconnect()
 
 print ('terminated.')
 sys.exit(1)
+
